@@ -130,6 +130,13 @@ public class Usuario {
         JOptionPane.showMessageDialog(null,"Cadastrado com sucesso!");
     }
     
+    public void alterarUsuario(){
+        String sql;
+        sql = "update usuario set nome_usuario='"+getNome_usuario()+"',login_usuario='"+getLogin_usuario()+"',senha_usuario='"+getSenha_usuario()+"',cpf='"+getCpf()+"',email='"+getEmail()+"',telefone='"+getTelefone()+"',dt_nasc='"+getDt_nasc()+"' where id_usuario='"+getId_usuario()+"'";
+        con.executeSQL(sql);
+        JOptionPane.showMessageDialog(null,"Cadastrado com sucesso!");
+    }
+    
     public ResultSet loginUsuario(){
         String sql;
         ResultSet tabela;
