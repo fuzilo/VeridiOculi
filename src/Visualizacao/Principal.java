@@ -50,6 +50,11 @@ public class Principal extends javax.swing.JFrame {
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Visualizacao/icones/novo.png"))); // NOI18N
         jButton1.setText("Nova análise");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Visualizacao/icones/account.png"))); // NOI18N
         jButton2.setText("Consultar Diagnósticos");
@@ -146,6 +151,17 @@ public class Principal extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:                                       
+    try {
+        java.awt.Desktop.getDesktop().browse(new java.net.URI("https://www.figma.com/file/VRhwNEG8UwuZ7cEYrHQVzg/VeridiOculi?type=design&node-id=0-1&t=SZ2zfU8KT8R5ZkuO-0"));
+    } catch (java.io.IOException | java.net.URISyntaxException ex) {
+        // Lida com exceções, se ocorrerem
+        ex.printStackTrace();
+    }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

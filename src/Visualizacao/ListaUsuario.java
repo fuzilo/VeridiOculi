@@ -28,7 +28,7 @@ public class ListaUsuario extends javax.swing.JFrame {
     
     public ListaUsuario() {
         initComponents();
-
+        listarTudo();
     }
   
     Usuario usu = new Usuario();
@@ -54,6 +54,7 @@ public class ListaUsuario extends javax.swing.JFrame {
                 usuarios.add(usuario);
             }
              for (Usuario usuario : usuarios) {
+            //Teste para validar a quantidade de registros que estão sendo inseridos no array
             System.out.println(usuario.toString());
         }
             qAZ.quicksort(usuarios);
@@ -82,6 +83,7 @@ public class ListaUsuario extends javax.swing.JFrame {
                 usuarios.add(usuario);
             }
              for (Usuario usuario : usuarios) {
+            //Teste para validar a quantidade de registros que estão sendo inseridos no array
             System.out.println(usuario.toString());
         }
             qZA.quicksort(usuarios);
@@ -111,6 +113,28 @@ public class ListaUsuario extends javax.swing.JFrame {
         }
     }
     
+    public void listarTudo(){
+        ResultSet tabela;
+        tabela = null;
+        
+        tabela = usu.listarUsuario();
+        DefaultTableModel modelo = (DefaultTableModel) tblUsuario.getModel();
+        modelo.setNumRows(0);
+        
+        try
+        {
+            do{
+                modelo.addRow(new String[]{tabela.getString(1),tabela.getString(2),tabela.getString(3),tabela.getString(4),tabela.getString(5),tabela.getString(6),tabela.getString(7),tabela.getString(8),tabela.getString(9)});
+            }
+            while(tabela.next());
+        }
+        catch(SQLException erro){
+            JOptionPane.showMessageDialog(null, "Erro ao preencher tabela: "+erro);
+        }
+        System.out.println("Teste");
+              
+    }
+    
     public void abrirModal(String id, String nome, String login, String senha, String cpf, String dataNascimento, String email, String telefone){
         ModalEditar modal = new ModalEditar(id,nome,login, senha, cpf, dataNascimento, email, telefone);
         modal.setVisible(true);
@@ -134,6 +158,7 @@ public class ListaUsuario extends javax.swing.JFrame {
         btnOrdenarZA = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnHome = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -211,13 +236,14 @@ public class ListaUsuario extends javax.swing.JFrame {
             }
         });
 
-        jLayeredPane1.setLayer(btnBuscar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(txtBusca, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(btnOrdenarAZ, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(btnOrdenarZA, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(btnEditar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(btnHome, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        btnExcluir.setBorderPainted(false);
+        btnExcluir.setContentAreaFilled(false);
+        btnExcluir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -234,7 +260,9 @@ public class ListaUsuario extends javax.swing.JFrame {
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
                         .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(301, 301, 301)
+                        .addGap(40, 40, 40)
+                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(147, 147, 147)
                         .addComponent(btnOrdenarAZ, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31)
                         .addComponent(btnOrdenarZA, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -256,11 +284,15 @@ public class ListaUsuario extends javax.swing.JFrame {
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(txtBusca, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
                             .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnOrdenarZA, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEditar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(36, 36, 36)
+                            .addComponent(btnOrdenarZA, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                                .addGap(5, 5, 5)
+                                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(31, 31, 31)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(jLayeredPane1Layout.createSequentialGroup()
@@ -268,6 +300,14 @@ public class ListaUsuario extends javax.swing.JFrame {
                         .addComponent(btnOrdenarAZ, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
+        jLayeredPane1.setLayer(btnBuscar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(txtBusca, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(btnOrdenarAZ, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(btnOrdenarZA, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(btnEditar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(btnHome, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(btnExcluir, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         getContentPane().add(jLayeredPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 720));
 
@@ -315,7 +355,7 @@ public class ListaUsuario extends javax.swing.JFrame {
 
         // Adicione os dados do array ordenado à tabela
         for (Usuario usuario : usuariosOrdenados) {
-            Object[] rowData = {usuario.getId_usuario(), usuario.getNome_usuario(), usuario.getCpf(), usuario.getEmail(), usuario.getTelefone(), usuario.getDt_nasc(), usuario.getDt_criacao()};
+            Object[] rowData = {usuario.getId_usuario(), usuario.getNome_usuario(),usuario.getLogin_usuario(),usuario.getSenha_usuario(), usuario.getCpf(), usuario.getEmail(), usuario.getTelefone(), usuario.getDt_nasc(), usuario.getDt_criacao()};
             modelo.addRow(rowData);
         }
     }//GEN-LAST:event_btnOrdenarZAActionPerformed
@@ -361,6 +401,21 @@ public class ListaUsuario extends javax.swing.JFrame {
         login.setVisible(true);
     }//GEN-LAST:event_btnHomeActionPerformed
 
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        // TODO add your handling code here:
+        
+        int rowIndex = tblUsuario.getSelectedRow();
+        
+        if (rowIndex != -1) {
+            Object id = tblUsuario.getValueAt(rowIndex, 0);
+            
+            usu.setId_usuario(Integer.parseInt((String) id));
+            
+        }
+        usu.excluirUsuario();
+        listarTudo();
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -399,6 +454,7 @@ public class ListaUsuario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnHome;
     private javax.swing.JButton btnOrdenarAZ;
     private javax.swing.JButton btnOrdenarZA;

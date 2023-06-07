@@ -121,6 +121,10 @@ public class Usuario {
     public void setDt_criacao(String dt_criacao) {
         this.dt_criacao = dt_criacao;
     }
+    
+    public void criarCenario(){
+        String sql;
+    }
 
     
     public void cadastrarUsuario(){
@@ -134,7 +138,13 @@ public class Usuario {
         String sql;
         sql = "update usuario set nome_usuario='"+getNome_usuario()+"',login_usuario='"+getLogin_usuario()+"',senha_usuario='"+getSenha_usuario()+"',cpf='"+getCpf()+"',email='"+getEmail()+"',telefone='"+getTelefone()+"',dt_nasc='"+getDt_nasc()+"' where id_usuario='"+getId_usuario()+"'";
         con.executeSQL(sql);
-        JOptionPane.showMessageDialog(null,"Cadastrado com sucesso!");
+    }
+    
+    public void excluirUsuario(){
+        String sql;
+        sql = "delete from usuario where id_usuario="+getId_usuario();
+        con.executeSQL(sql);
+        JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso!");
     }
     
     public ResultSet loginUsuario(){
